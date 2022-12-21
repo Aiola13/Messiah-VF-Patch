@@ -64,7 +64,7 @@ class Application(tk.Tk):
                     # Remplace le chemin du package par le chemin de destination
                     dest_path = source_path.replace(
                         package_folder, destination_folder)
-                    # Vérifiez si le répertoire de destination existe, sinon créez-le
+                    # Vérifiez si le répertoire de destination existe, sinon créez-lepip3
                     if not os.path.exists(os.path.dirname(dest_path)):
                         os.makedirs(os.path.dirname(dest_path))
                     # Copiez chaque élément dans le dossier de destination
@@ -80,8 +80,10 @@ if __name__ == "__main__":
     app = Application()
     # Modifie le titre de la fenêtre
     app.title("Messiah Patch VF :-)")
-    app.iconbitmap(os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), 'messiah.ico'))
+    # app.iconbitmap(os.path.join(
+    #   os.path.dirname(os.path.abspath(__file__)), "resources", 'messiah.ico'))
+    # icon = tk.PhotoImage(file='messiah.gif')
+    # app.iconphoto(True, icon)
     app.geometry("600x120")
     # Démarre la boucle d'événements Tkinter
     app.mainloop()
