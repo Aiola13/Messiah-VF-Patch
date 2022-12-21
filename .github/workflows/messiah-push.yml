@@ -22,8 +22,7 @@ jobs:
         run: |
           python -m pip install -U pyinstaller
           python -m pip install -U tkinter
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+      #    if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Build executable
         run: |
           pyinstaller --onefile --windowed messiah_patch.py
