@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: messiah_patch
-          path: messiah_patch.exe
+          path: dist/messiah_patch.exe
