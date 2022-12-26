@@ -46,6 +46,7 @@ class Application(tk.Tk):
         pop.button.pack()
         pop.grab_set()
 
+
     # Créer une fonction qui sera appelée lorsque vous appuyez sur le bouton
 
     def copy_resource(self):
