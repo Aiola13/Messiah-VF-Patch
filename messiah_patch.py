@@ -4,6 +4,7 @@ from tkinter import filedialog
 from tkinter import *
 import shutil
 
+
 # Class de notre application
 
 
@@ -31,7 +32,11 @@ class Application(tk.Tk):
     # Créer une fonction qui ouvre une popup une fois les fichiers copiés
     def open_popup(self, destination_folder):
         pop = Toplevel(self)
-        pop.geometry("400x50")
+        root_x = self.winfo_rootx()
+        root_y = self.winfo_rooty()
+        win_x = root_x + 100
+        win_y = root_y + 25
+        pop.geometry(f'+{win_x}+{win_y}')
         pop.title("MessageBox")
         pop.label = tk.Label(
             pop, text=f"Les ressources ont été copiées dans {destination_folder}")
@@ -39,6 +44,7 @@ class Application(tk.Tk):
             pop, text="Quitter", command=pop.quit)
         pop.label.pack()
         pop.button.pack()
+        pop.grab_set()
 
     # Créer une fonction qui sera appelée lorsque vous appuyez sur le bouton
 
@@ -64,7 +70,7 @@ class Application(tk.Tk):
                     # Remplace le chemin du package par le chemin de destination
                     dest_path = source_path.replace(
                         package_folder, destination_folder)
-                    # Vérifiez si le répertoire de destination existe, sinon créez-lepip3
+                    # Vérifiez si le répertoire de destination existe, sinon créez-le
                     if not os.path.exists(os.path.dirname(dest_path)):
                         os.makedirs(os.path.dirname(dest_path))
                     # Copiez chaque élément dans le dossier de destination
@@ -81,9 +87,13 @@ if __name__ == "__main__":
     # Modifie le titre de la fenêtre
     app.title("Messiah Patch VF :-)")
     # app.iconbitmap(os.path.join(
-    #   os.path.dirname(os.path.abspath(__file__)), "resources", 'messiah.ico'))
-    # icon = tk.PhotoImage(file='messiah.gif')
-    # app.iconphoto(True, icon)
-    app.geometry("600x120")
+    #    os.path.dirname(os.path.abspath(__file__)), 'messiah.ico'))
+    # app.iconbitmap('D:\Projects\Messiah-VF-Patch\messiah.ico')
+    screen_width = app.winfo_screenwidth()
+    screen_height = app.winfo_screenheight()
+    app_x = int((screen_width/2) - (600/2))
+    app_y = int((screen_height/2) - (120/2))
+    app.geometry(
+        f'+{app_x}+{app_y}')
     # Démarre la boucle d'événements Tkinter
     app.mainloop()
