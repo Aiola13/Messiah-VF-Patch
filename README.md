@@ -104,6 +104,25 @@ J'apprécie toute contribution à ce projet. Si vous souhaitez contribuer, veuil
 - Pusher la branche (git push origin my-feature)
 - Créer une nouvelle Pull Request
 
+## Logiciels et ressources
+
+Les logiciels utilisés et les informations utiles pour comprendre le format .MVE : 
+
+- [Forum nma-fallout](https://www.nma-fallout.com)
+  - [https://www.nma-fallout.com/threads/converting-video-to-mve.218520/](https://www.nma-fallout.com/threads/converting-video-to-mve.218520/)
+  - [https://www.nma-fallout.com/threads/new-beta-of-avi2mve-converter.155987/#post-3088840](https://www.nma-fallout.com/threads/new-beta-of-avi2mve-converter.155987/#post-3088840)
+  - [https://www.nma-fallout.com/threads/avi2mve.220407/#post-4432138](https://www.nma-fallout.com/threads/avi2mve.220407/#post-4432138)
+- [Forum fforum.kochegarov](https://fforum.kochegarov.com/)
+- [Applications](http://www.teamx.ru/site_arc/utils/index.html) de la [TeamX](http://www.teamx.ru) qui permettent de convertir du format `.mve` à `.avi`
+  - [avi2mve](http://www.teamx.ru/site_arc/utils/avi2mve_040919.rar) (Lien direct vers le rar)
+    ```
+    .\avi2mve.exe .\intro.avi -w .\track26.wav -size 60 -hq
+    ```
+  - [mve2avi](http://www.teamx.ru/site_arc/utils/mve2avi2.4h.rar) (Lien direct vers le rar)
+    ```
+    .\fsp.exe .\intro.mve .\intro.avi
+    ```
+- [VirtualDub](https://virtualdub.org) qui permet d'ajouter l'audio et de conserver le codec utilisé par les logiciels précédents
 
 
 ## License
