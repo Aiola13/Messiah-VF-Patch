@@ -57,12 +57,14 @@ Vous pouvez directement télécharger la [release](https://github.com/Aiola13/Me
 ### PY
 Pour utiliser le patch, vous aurez besoin de Python 3 et des bibliothèques suivantes :
 
-- `tkinter`
+- [`customtkinter`](https://github.com/TomSchimansky/CustomTkinter) (Evolution de [`tkinter`](https://docs.python.org/fr/3/library/tkinter.html))
+- [`CTkMessageBox`](https://github.com/Akascape/CTkMessagebox)
   
-Pour installer cette dépendace, utiliser la commande pip :
+Pour installer ces dépendances, utiliser la commande pip :
 
 ```bash
-pip install tk
+pip install customtkinter
+pip install CTkMessageBox
 ```
 
 Pour lancer l'application, utiliser la commande `python` : 
@@ -85,13 +87,19 @@ Pour installer cette dépendace, utilisez la commande pip :
 pip install pysintaller
 ```
 
-Pour compiler le script, utiliser la commande suivante : 
+Pour compiler le script sans icones, utiliser la commande suivante : 
 
 ```bash
 pysintaller --onefile --windowed messiah_patch.py
 ```
 
-Les options `--onefile` et `--windowed` signifient respectivement 'un seul fichier EXE' et 'sans ouvrir de terminal'.
+ou avec les icones :
+
+```bash
+pysintaller --onefile --windowed --add-data "messiah.ico:." --add-data "icons8-search-50-dark-theme.png:." messiah_patch.py
+```
+
+Les options `--onefile` et `--windowed` signifient respectivement 'un seul fichier EXE' et 'sans ouvrir de terminal' (synonymes `-w` and `--noconsole`).
 
 
 
