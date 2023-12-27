@@ -84,19 +84,19 @@ Pour regrouper le script `py` et l'ensemble de ses dépendances dans un paquet, 
 Pour installer cette dépendace, utilisez la commande pip :
 
 ```bash
-pip install pysintaller
+pip install pyinstaller
 ```
 
 Pour compiler le script sans icones, utiliser la commande suivante : 
 
 ```bash
-pysintaller --onefile --windowed messiah_patch.py
+pyinstaller --onefile --windowed messiah_patch.py
 ```
 
 ou avec les icones :
 
 ```bash
-pysintaller --onefile --windowed --add-data "messiah.ico:." --add-data "icons8-search-50-dark-theme.png:." messiah_patch.py
+pyinstaller --onefile --windowed --add-data "messiah.ico:." --add-data "icons8-search-50-dark-theme.png:." messiah_patch.py
 ```
 
 Les options `--onefile` et `--windowed` signifient respectivement 'un seul fichier EXE' et 'sans ouvrir de terminal' (synonymes `-w` and `--noconsole`).
