@@ -1,0 +1,4 @@
+# Requirements pour Messiah Patch VF
+customtkinter>=5.2.0
+Pillow>=9.0.0
+CTkMessagebox>=2.5

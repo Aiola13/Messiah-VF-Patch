@@ -1,9 +1,11 @@
 name: Messiah Push
 
-on: [push]
+on:
+  push:
+    branches: [main, master] # Déclenche seulement sur les branches principales
 
 jobs:
-  build:
+  build-and-release:
     runs-on: windows-latest
     strategy:
       matrix:
@@ -11,7 +13,9 @@ jobs:
 
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content to github runner
+        uses: actions/checkout@v4 # checkout the repository content to github runner
+        with:
+          fetch-depth: 0 # Nécessaire pour obtenir tous les tags
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -20,23 +24,77 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           python -m pip install -U pyinstaller
           python -m pip install -U customtkinter
           python -m pip install -U Pillow
           python -m pip install -U CTkMessageBox
-        # python -m pip install -U tkinter
+
       #    if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Build executable
         run: |
-          pyinstaller --onefile --windowed --add-data "messiah.ico:." --add-data "icons8-search-50-dark-theme.png:." messiah_patch.py
-        # pyinstaller --onefile --windowed messiah_patch.py
+          pyinstaller --onefile --windowed --add-data "resources/icons/messiah.ico:." --add-data "resources:resources" --icon=resources/icons/messiah.ico --name=messiah_patch main.py
 
-      #- name: Archive executable
-      #  run: |
-      #    7z a my_script.zip dist/messiah_patch.exe
+      - name: Create portable directory
+        run: |
+          mkdir portable
+          copy dist\messiah_patch.exe portable\
+          copy README.md portable\ 2>nul || echo "README.md not found, skipping"
+          copy LICENSE portable\ 2>nul || echo "LICENSE not found, skipping"
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Create ZIP archive
+        run: |
+          powershell Compress-Archive -Path portable\* -DestinationPath messiah_patch_portable.zip
+
+      - name: Generate release tag
+        id: tag
+        run: |
+          $timestamp = Get-Date -Format "yyyy.MM.dd.HHmm"
+          $tag = "v$timestamp"
+          echo "tag=$tag" >> $env:GITHUB_OUTPUT
+          echo "release_name=Messiah Patch Release $timestamp" >> $env:GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: messiah_patch
-          path: dist/messiah_patch.exe
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: ${{ steps.tag.outputs.release_name }}
+          body: |
+            🚀 **Release automatique de Messiah Patch**
+            
+            📦 **Contenu :**
+            - Exécutable Windows (`messiah_patch.exe`)
+            - Version portable (ZIP)
+            
+            📅 **Build :** ${{ github.sha }}
+            🌿 **Branche :** ${{ github.ref_name }}
+            
+            **Installation :**
+            1. Téléchargez le fichier ZIP
+            2. Extrayez-le où vous voulez
+            3. Lancez `messiah_patch.exe`
+          draft: false
+          prerelease: false
+
+      - name: Upload ZIP to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./messiah_patch_portable.zip
+          asset_name: messiah_patch_portable.zip
+          asset_content_type: application/zip
+
+      - name: Upload EXE to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/messiah_patch.exe
+          asset_name: messiah_patch.exe
+          asset_content_type: application/octet-stream
