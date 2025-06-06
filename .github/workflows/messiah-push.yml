@@ -35,10 +35,17 @@ jobs:
         run: |
           pyinstaller --onefile --windowed --add-data "resources/icons/messiah.ico:." --add-data "resources:resources" --icon=resources/icons/messiah.ico --name=messiah_patch main.py
 
+      - name: Get version from __init__.py
+        id: get_version
+        run: |
+          $content = Get-Content .\__init__.py
+          $version = ($content | Select-String -Pattern '__version__\s*=\s*"(.*)"').Matches[0].Groups[1].Value
+          echo "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: Messiah
+          tag_name: ${{ steps.get_version.outputs.version }}
           files: dist/messiah_patch.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
