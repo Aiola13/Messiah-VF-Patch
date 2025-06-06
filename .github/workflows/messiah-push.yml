@@ -38,7 +38,7 @@ jobs:
       - name: Get version from __init__.py
         id: get_version
         run: |
-          $content = Get-Content .\__init__.py
+          $content = Get-Content .\src\__init__.py
           $version = ($content | Select-String -Pattern '__version__\s*=\s*"(.*)"').Matches[0].Groups[1].Value
           echo "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
