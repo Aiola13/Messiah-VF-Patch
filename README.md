@@ -5,11 +5,9 @@
 [![GitHub tag](https://img.shields.io/github/tag/Aiola13/Messiah-VF-Patch?include_prereleases=&sort=semver&color=blue)](https://github.com/Aiola13/Messiah-VF-Patch/releases/)
 [![Made with Python](https://img.shields.io/badge/Python->=3.10-blue?logo=python&logoColor=white)](https://python.org "Go to Python homepage")
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
-
 [![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FAiola13%2FMessiah-VF-Patch&countColor=%231e80c0&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2FAiola13%2FMessiah-VF-Patch)
 ![Files](https://img.shields.io/github/directory-file-count/Aiola13/Messiah-VF-Patch?type=file&?style=flat-square)
-![Size](https://img.shields.io/github/repo-size/Aiola13/Messiah-VF-Patch?style=flat-square)
-
+![Size](https://img.shields.io/github/repo-size/Aiola13/Messiah-VF-Patch?style=flat)
 [![Made with GH Actions](https://img.shields.io/badge/CI-GitHub_Actions-blue?logo=github-actions&logoColor=white)](https://github.com/features/actions "Go to GitHub Actions homepage")
 [![stars - Messiah-VF-Patch](https://img.shields.io/github/stars/Aiola13/Messiah-VF-Patch?style=social)](https://github.com/Aiola13/Messiah-VF-Patch)
 [![forks - Messiah-VF-Patch](https://img.shields.io/github/forks/Aiola13/Messiah-VF-Patch?style=social)](https://github.com/Aiola13/Messiah-VF-Patch)
@@ -38,7 +36,7 @@
 
 <div align="center">
 
-![Interface de l'application](overview.png)
+![Interface de l'application](resources/img/overview.png)
 
 **Interface avec onglets :** Installation • Sauvegarde • Informations
 

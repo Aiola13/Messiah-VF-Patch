@@ -35,66 +35,10 @@ jobs:
         run: |
           pyinstaller --onefile --windowed --add-data "resources/icons/messiah.ico:." --add-data "resources:resources" --icon=resources/icons/messiah.ico --name=messiah_patch main.py
 
-      - name: Create portable directory
-        run: |
-          mkdir portable
-          copy dist\messiah_patch.exe portable\
-          copy README.md portable\ 2>nul || echo "README.md not found, skipping"
-          copy LICENSE portable\ 2>nul || echo "LICENSE not found, skipping"
-
-      - name: Create ZIP archive
-        run: |
-          powershell Compress-Archive -Path portable\* -DestinationPath messiah_patch_portable.zip
-
-      - name: Generate release tag
-        id: tag
-        run: |
-          $timestamp = Get-Date -Format "yyyy.MM.dd.HHmm"
-          $tag = "v$timestamp"
-          echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          echo "release_name=Messiah Patch Release $timestamp" >> $env:GITHUB_OUTPUT
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: Messiah
+          files: dist/messiah_patch.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          release_name: ${{ steps.tag.outputs.release_name }}
-          body: |
-            🚀 **Release automatique de Messiah Patch**
-            
-            📦 **Contenu :**
-            - Exécutable Windows (`messiah_patch.exe`)
-            - Version portable (ZIP)
-            
-            📅 **Build :** ${{ github.sha }}
-            🌿 **Branche :** ${{ github.ref_name }}
-            
-            **Installation :**
-            1. Téléchargez le fichier ZIP
-            2. Extrayez-le où vous voulez
-            3. Lancez `messiah_patch.exe`
-          draft: false
-          prerelease: false
-
-      - name: Upload ZIP to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./messiah_patch_portable.zip
-          asset_name: messiah_patch_portable.zip
-          asset_content_type: application/zip
-
-      - name: Upload EXE to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/messiah_patch.exe
-          asset_name: messiah_patch.exe
-          asset_content_type: application/octet-stream
